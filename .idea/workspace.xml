@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9f04d9f-80ae-43b2-98ea-eea7ab0ca0e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AssasinApp.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/PlayerData" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AssassinApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AssassinSetup.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/res/TestPlayerData" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/PlayerData" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/Scanned" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AssassinSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AssassinSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,5 +75,16 @@
       <updated>1670546118102</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

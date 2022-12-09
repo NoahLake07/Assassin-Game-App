@@ -1,41 +1,237 @@
 import FFM.FileMaster;
-
+import freshui.Constants;
+import freshui.graphics.FButton;
+import freshui.gui.Header;
+import freshui.gui.input.Input;
+import freshui.program.FreshProgram;
+import freshui.util.Resizer;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AssassinSetup extends FileMaster {
+public class AssassinSetup extends FreshProgram {
 
-    public void loadProfiles(){
-        // set up the pathname for input data
-        String pathname = "res/PlayerData";
+    File playerInput, gameOutput;
+    String gameTitle = "";
 
-        // scan in the data
-        File file = new File(pathname);
-        if (file.exists()) {
-            Scanner s;
-            try {
-                s = new Scanner(file);
-            } catch (FileNotFoundException var5) {
-                throw new RuntimeException(var5);
+    public void init(){
+        setSize(350,350);
+        setProgramName("New Assassin Game");
+
+        Header header = new Header(getWidth(),"Assassin Game Setup Wizard", Constants.CENTER, this);
+        add(header,0,0);
+        header.setColor(new Color(204, 151, 151));
+
+        Input gameTitle = new Input("Game Title",this);
+        gameTitle.setColor(new Color(134, 171, 220));
+        gameTitle.setWidth(getWidth() - 30);
+        add(gameTitle, 10,header.getHeight() + 30);
+
+        Color defaultC1 = new Color(185, 215, 225);
+        Color hoverC1 = new Color(157, 181, 190);
+        Color defaultC2 = new Color(200, 185, 225);
+        Color hoverC2 = new Color(186, 157, 190);
+
+        FButton chooseFile = new FButton("Choose a .pldir file");
+        chooseFile.setSize(150, 20);
+        chooseFile.setColor(defaultC1);
+        add(chooseFile, 10, gameTitle.getY() + gameTitle.getHeight() + 10);
+        JLabel selectedFile = new JLabel("No File Selected.");
+        selectedFile.setSize(200, 300);
+        selectedFile.setVerticalAlignment(SwingConstants.TOP);
+        add(selectedFile, chooseFile.getX() + chooseFile.getWidth() + 10,chooseFile.getY());
+        chooseFile.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                File selected = choosePlayerFile();
+                selectedFile.setText(selected.getName());
+                playerInput = selected;
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                chooseFile.setColor(hoverC1);
             }
 
-            int count = 0;
+            @Override
+            public void mouseExited(MouseEvent e) {
+                chooseFile.setColor(defaultC1);
+            }
+        });
 
-            ArrayList list;
-            for(list = new ArrayList(); s.hasNextLine(); ++count) {
-                list.add(s.nextLine());
+        FButton chooseGameLocation = new FButton("Choose a save location");
+        chooseGameLocation.setSize(150, 20);
+        chooseGameLocation.setColor(defaultC2);
+        add(chooseGameLocation, 10, chooseFile.getY() + chooseFile.getHeight() + 10);
+        JLabel selOutputFile = new JLabel("Output Directory null");
+        selOutputFile.setSize(200, 300);
+        selOutputFile.setVerticalAlignment(SwingConstants.TOP);
+        add(selOutputFile, chooseGameLocation.getX() + chooseGameLocation.getWidth() + 10,chooseGameLocation.getY());
+
+        FButton createGame = new FButton("Create Game Files");
+        createGame.setSize(getWidth()-20, 50);
+        createGame.setColor(new Color(220, 220, 220));
+        add(createGame, 10, getHeight() - createGame.getHeight() - 10);
+        chooseGameLocation.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                File selected = choosePlayerFile();
+                selOutputFile.setText(selected.getName());
+                gameOutput = selected;
+            }
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                chooseGameLocation.setColor(hoverC2);
+                if(selectedFile !=null && gameOutput !=null){
+                    createGame.setColor(new Color(62, 210, 215));
+                } else {
+                    createGame.setColor(new Color(220, 220, 220));
+                }
             }
 
-            s.close();
-            ArrayList<String> scannedData = list;
+            @Override
+            public void mouseExited(MouseEvent e) {
+                chooseGameLocation.setColor(defaultC2);
+                if(selectedFile !=null && gameOutput !=null){
+                    createGame.setColor(new Color(62, 210, 215));
+                } else {
+                    createGame.setColor(new Color(220, 220, 220));
+                }
+            }
+        });
+        createGame.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if(selectedFile !=null && gameOutput !=null){
+                    File selected = gameOutput;
+                    Setup setupWizard = new Setup();
+                    setupWizard.loadProfiles(selected.getPath());
+                    setupWizard.exportGame(gameOutput, "Assassin Game 1");
+                }
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if(selectedFile !=null && gameOutput !=null){
+                    createGame.setColor(new Color(62, 210, 215));
+                } else {
+                    createGame.setColor(new Color(220, 220, 220));
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                if(selectedFile !=null && gameOutput !=null){
+                    createGame.setColor(new Color(48, 189, 232));
+                } else {
+                    createGame.setColor(new Color(220, 220, 220));
+                }
+            }
+        });
+
+        // Start resizing components on window
+        Resizer resizeTool1 = new Resizer(this);
+        resizeTool1.add(header);
+        //resizeTool1.startResizing();
+    }
+
+    private File choosePlayerFile(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        fileChooser.setFileSelectionMode(0);
+
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }catch(Exception ex) {
+            ex.printStackTrace();
         }
-
+        int result = fileChooser.showOpenDialog(this);
+        if (result == 0) {
+            File selectedFile = fileChooser.getSelectedFile();
+            return selectedFile;
+        } else {
+            return null;
+        }
     }
 
     public static void main(String[] args) {
-        new AssassinSetup().loadProfiles();
+        new AssassinSetup().start();
+    }
+
+    public class Setup extends FileMaster {
+        ArrayList<String> scannedData;
+        public ArrayList<Player> participants = new ArrayList<>();
+
+        public void exportGame(File output, String gameName){
+
+        }
+
+        private void printProfiles(ArrayList<Player> profiles) {
+            for (int i = 0; i < profiles.size(); i++) {
+                profiles.get(i).printContactDetails();
+            }
+        }
+
+        private void loadProfiles(String pathname) {
+            // scan in the data
+            File file = new File(pathname);
+            if (file.exists()) {
+                Scanner s;
+                try {
+                    s = new Scanner(file);
+                } catch (FileNotFoundException var5) {
+                    throw new RuntimeException(var5);
+                }
+
+                int count = 0;
+                ArrayList list = new ArrayList();
+                while (s.hasNextLine()) {
+                    list.add(s.nextLine());
+                    count++;
+                }
+
+                s.close();
+                scannedData = list;
+            }
+
+            // scan all players from data
+            for (int i = 0; i < scannedData.size(); i++) {
+                String currentLine = scannedData.get(i);
+                String name, phoneNum, notes;
+
+                // get player name
+                StringBuffer sb = new StringBuffer();
+                int ch = 0;
+                while (currentLine.charAt(ch) != ',') {
+                    sb.append(currentLine.charAt(ch));
+                    ch++;
+                }
+                name = String.valueOf(sb);
+                ch++;
+
+                // get player number
+                sb = new StringBuffer();
+                while (currentLine.charAt(ch) != ',') {
+                    sb.append(currentLine.charAt(ch));
+                    ch++;
+                }
+                phoneNum = String.valueOf(sb);
+
+                // get player notes (bio)
+                sb = new StringBuffer();
+                ch = ch + 2;
+                while (currentLine.charAt(ch) != '/') {
+                    sb.append(currentLine.charAt(ch));
+                    ch++;
+                }
+                notes = String.valueOf(sb);
+                participants.add(new Player(name, phoneNum, notes, i));
+            }
+        }
     }
 
 }
