@@ -1,3 +1,5 @@
+import logs.Timeout;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -8,6 +10,8 @@ public class Player {
     // player details
     public int PID, lives, score;
     public ArrayList<Player> targets, assassins, shots, kills;
+    public Player killedBy;
+    public ArrayList<Timeout> timeouts;
 
     /**
      * Creates a new player using given values
@@ -19,8 +23,9 @@ public class Player {
      * @param as       Assassins (The people hunting them)
      * @param sh       Shots (who've they've shot)
      * @param ki       Kills
+     * @param ti       Timeouts
      */
-    public Player(String na, String phNum, String no, int playerID, int sc, int li, ArrayList<Player> tar, ArrayList<Player> as, ArrayList<Player> sh, ArrayList<Player> ki) {
+    public Player(String na, String phNum, String no, int playerID, int sc, int li, ArrayList<Player> tar, ArrayList<Player> as, ArrayList<Player> sh, ArrayList<Player> ki, ArrayList<Timeout> ti) {
         name = na;
         phoneNumber = phNum;
         notes = no;
@@ -34,12 +39,11 @@ public class Player {
     }
 
     /**
-     * NEW PLAYER, values will be defaulted
-     *
+     * NEW PLAYER, values will be defaulted.
      * @param playerID
      */
     public Player(String na, String phNum, String no, int playerID) {
-        this(na, phNum, no, playerID, 0000, 3, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        this(na, phNum, no, playerID, 0000, 3, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
     public void printContact() {
