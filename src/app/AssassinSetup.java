@@ -1,4 +1,8 @@
+package app;
+
 import FFM.FileMaster;
+import data.Player;
+import data.Time;
 import freshui.Constants;
 import freshui.graphics.FButton;
 import freshui.gui.Header;
@@ -6,8 +10,6 @@ import freshui.gui.input.Input;
 import freshui.program.FreshProgram;
 import freshui.util.FColor;
 import freshui.util.Resizer;
-import logs.Time;
-import logs.Timeout;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,7 +34,7 @@ class AssassinSetup extends FreshProgram {
         Color dBC = new Color(190, 190, 190);
         Color hBC = FColor.darker(dBC, 0.8);
         Font bF = new Font("Arial",Font.PLAIN,10);
-        FButton setupPlayers = new FButton("<html>Player<p>Setup</html>");
+        FButton setupPlayers = new FButton("<html>data.Player<p>Setup</html>");
         FButton setupGame = new FButton("<html>New Game</html>");
         setupPlayers.setFont(bF);
         setupGame.setFont(bF);
@@ -83,7 +85,10 @@ class AssassinSetup extends FreshProgram {
 
 
     public static void main(String[] args) {
-        new AssassinSetup().start();
+        //new AssassinSetup().start();
+        Player pl = new Player("John Miller, 100-200-3004, Works at office/");
+        pl.printContact();
+
     }
 
     public class PlayerSetup extends FreshProgram {

@@ -1,4 +1,4 @@
-import logs.Timeout;
+package data;
 
 import java.util.ArrayList;
 
@@ -46,6 +46,27 @@ public class Player {
         this(na, phNum, no, playerID, 0000, 3, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
+    /**
+     * Creates a new player using a player directory line
+     * @param pldir
+     */
+    public Player(String pldir){
+
+    }
+
+    public boolean isAlive(){
+        return lives>0;
+    }
+
+    public String getSimpleSaveString(){
+        StringBuffer sb = new StringBuffer();
+        sb.append(name + ",");
+        sb.append(phoneNumber + ",");
+        sb.append(notes + "\\");
+
+        return sb.toString();
+    }
+
     public void printContact() {
         System.out.println("=== CONTACT INFO ===");
         System.out.println("Name: " + name);
@@ -64,9 +85,9 @@ public class Player {
         System.out.println("Notes: " + notes);
         System.out.println();
         if(isAlive()){
-            System.out.println("Player is ALIVE");
+            System.out.println("data.Player is ALIVE");
         } else{
-            System.out.println("Player is DEAD");
+            System.out.println("data.Player is DEAD");
         }
         System.out.println("Lives: " + lives);
         System.out.println("Targets:");
@@ -79,10 +100,6 @@ public class Player {
         }
         System.out.println("====================");
         System.out.println();
-    }
-
-    public boolean isAlive(){
-        return lives>0;
     }
 
 }

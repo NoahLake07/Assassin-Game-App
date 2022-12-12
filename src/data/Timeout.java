@@ -1,4 +1,4 @@
-package logs;
+package data;
 
 public class Timeout {
 

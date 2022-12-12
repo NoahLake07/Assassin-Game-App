@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9f04d9f-80ae-43b2-98ea-eea7ab0ca0e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/logs/Time.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/logs/Timeout.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/builders/GameBuilder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/builders/GameSaver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/builders/PlayerBuilder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AssassinSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/AssassinSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AssassinApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/AssassinApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AssassinSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/AssassinSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logs/Time.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/Time.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/logs/Timeout.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/Timeout.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +56,7 @@
   </component>
   <component name="RunManager">
     <configuration name="AssassinSetup" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="AssassinSetup" />
+      <option name="MAIN_CLASS_NAME" value="app.AssassinSetup" />
       <module name="AssasinApp" />
       <method v="2">
         <option name="Make" enabled="true" />

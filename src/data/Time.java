@@ -1,4 +1,4 @@
-package logs;
+package data;
 
 import java.time.LocalDateTime;
 
@@ -77,6 +77,60 @@ public class Time {
         sb.append(minute + ":");
         sb.append(second + "]");
         return sb.toString();
+    }
+
+    public Time retrieveSaveData(String time){
+        if(time.startsWith("[")){
+            int i = 1;
+            StringBuffer month, day, year, hour, minute, second;
+
+            // scan month data
+            month = new StringBuffer();
+            while(time.charAt(i) != '/'){
+                month.append(time.charAt(i++));
+            }
+            i++;
+
+            // scan day data
+            day = new StringBuffer();
+            while(time.charAt(i) != '/'){
+                day.append(time.charAt(i++));
+            }
+            i++;
+
+            // scan year data
+            year = new StringBuffer();
+            while(time.charAt(i) != '|'){
+                year.append(time.charAt(i++));
+            }
+            i++;
+
+            // scan hour data
+            hour = new StringBuffer();
+            while(time.charAt(i) != ':'){
+                hour.append(time.charAt(i++));
+            }
+            i++;
+
+            // scan minute data
+            minute = new StringBuffer();
+            while(time.charAt(i) != ':'){
+                minute.append(time.charAt(i++));
+            }
+            i++;
+
+            // scan second data
+            second = new StringBuffer();
+            while(time.charAt(i) != ']'){
+                second.append(time.charAt(i++));
+            }
+
+            return new Time(Integer.valueOf(month.toString()),Integer.valueOf(day.toString()),
+                            Integer.valueOf(year.toString()),Integer.valueOf(hour.toString()),
+                            Integer.valueOf(minute.toString()),Integer.valueOf(second.toString()));
+        }else {
+            return null;
+        }
     }
 
     public Time addHours(long hours){

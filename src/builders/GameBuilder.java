@@ -1,2 +1,4 @@
-package builders;public class GameBuilder {
+package builders;
+
+public class GameBuilder {
 }
