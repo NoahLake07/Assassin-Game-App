@@ -83,9 +83,7 @@ class AssassinSetup extends FreshProgram {
 
 
     public static void main(String[] args) {
-        //new AssassinSetup().start();
-        Timeout tm = new Timeout();
-        System.out.println(tm.getSaveString());
+        new AssassinSetup().start();
     }
 
     public class PlayerSetup extends FreshProgram {
