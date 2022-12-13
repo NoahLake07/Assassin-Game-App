@@ -4,22 +4,8 @@ import java.time.LocalDateTime;
 
 public class Time {
 
-    // global variables
-    public final static int JAN = 1;
-    public final static int FEB = 2;
-    public final static int MAR = 3;
-    public final static int APR = 4;
-    public final static int MAY = 5;
-    public final static int JUN = 6;
-    public final static int JUL = 7;
-    public final static int AUG = 8;
-    public final static int SEP = 9;
-    public final static int OCT = 10;
-    public final static int NOV = 11;
-    public final static int DEC = 12;
-
-    // local variables
-    int month, day, year, hour, minute, second;
+    // variables
+    public int month, day, year, hour, minute, second;
 
     public Time(int mm, int dd, int yr, int hr, int min, int sec){
         month = mm;

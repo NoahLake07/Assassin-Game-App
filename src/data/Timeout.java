@@ -57,7 +57,7 @@ public class Timeout {
         timeoutDesc = desc;
     }
 
-    public String getSaveString(){
+    public String saveString(){
         StringBuffer sb = new StringBuffer();
         sb.append("Ø");
         sb.append(timeStart.getSaveString() + ",");

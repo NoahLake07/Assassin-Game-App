@@ -13,6 +13,10 @@ public class Player {
     public Player killedBy;
     public ArrayList<Timeout> timeouts;
 
+    public static final int DEFAULT_LIVES = 3;
+    public static final int UNIDENTIFIED_PLAYER = -1;
+    public static final int STARTING_SCORE = 0;
+
     /**
      * Creates a new player using given values
      *
@@ -25,7 +29,8 @@ public class Player {
      * @param ki       Kills
      * @param ti       Timeouts
      */
-    public Player(String na, String phNum, String no, int playerID, int sc, int li, ArrayList<Player> tar, ArrayList<Player> as, ArrayList<Player> sh, ArrayList<Player> ki, ArrayList<Timeout> ti) {
+    public Player(String na, String phNum, String no, int playerID, int sc, int li,
+                  ArrayList<Player> tar, ArrayList<Player> as, ArrayList<Player> sh, ArrayList<Player> ki, ArrayList<Timeout> ti) {
         name = na;
         phoneNumber = phNum;
         notes = no;
@@ -43,7 +48,8 @@ public class Player {
      * @param playerID
      */
     public Player(String na, String phNum, String no, int playerID) {
-        this(na, phNum, no, playerID, 0000, 3, new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        this(na, phNum, no, playerID, STARTING_SCORE, DEFAULT_LIVES,
+                new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
     /**
@@ -51,19 +57,126 @@ public class Player {
      * @param pldir
      */
     public Player(String pldir){
+        Player myData = decodeSimple(pldir);
+        name = myData.name;
+        phoneNumber = myData.phoneNumber;
+        notes = myData.notes;
+        lives = myData.lives;
+        score = myData.score;
+        PID = myData.PID;
+        targets = myData.targets;
+        assassins = myData.assassins;
+        shots = myData.shots;
+        kills = myData.kills;
+    }
 
+    public Player(String na, String phNum, String no) {
+        this(na, phNum, no, UNIDENTIFIED_PLAYER, STARTING_SCORE, DEFAULT_LIVES,
+                new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+    }
+
+    public static Player decodeSimple(String pldir){
+        int i = 0;
+        StringBuffer name, number, notes;
+
+        // scan player name
+        name = new StringBuffer();
+        while(pldir.charAt(i) != ','){
+            name.append(pldir.charAt(i++));
+        }
+        i++;
+
+        // scan player phone number
+        number = new StringBuffer();
+        while(pldir.charAt(i) != ','){
+            number.append(pldir.charAt(i++));
+        }
+        i++;
+
+        // scan player notes
+        notes = new StringBuffer();
+        while(i< pldir.length()){
+            notes.append(pldir.charAt(i++));
+        }
+
+        Player player = new Player(name.toString(), number.toString(), notes.toString());
+
+        if(player.timeouts == null){
+            player.timeouts = new ArrayList<>();
+        }
+        if(player.assassins == null){
+            player.assassins = new ArrayList<>();
+        }
+        if(player.targets == null){
+            player.targets = new ArrayList<>();
+        }
+        if(player.shots == null){
+            player.shots = new ArrayList<>();
+        }
+
+        return player;
     }
 
     public boolean isAlive(){
         return lives>0;
     }
 
-    public String getSimpleSaveString(){
+    public String saveSimple(){
         StringBuffer sb = new StringBuffer();
         sb.append(name + ",");
         sb.append(phoneNumber + ",");
-        sb.append(notes + "\\");
+        sb.append(notes);
 
+        return sb.toString();
+    }
+
+    public String save(){
+        StringBuffer sb = new StringBuffer();
+
+        // basic data
+        sb.append("(" + name + "<" + phoneNumber + "<" + PID + "<" + notes + "<" + lives + "<");
+        if(killedBy == null){
+            sb.append(-1 + "|");
+        } else {
+            sb.append(killedBy.PID + "|");
+        }
+
+        // assassin data
+        if(assassins != null) {
+            for (int i = 0; i < assassins.size(); i++) {
+                sb.append("<§" + assassins.get(i).PID);
+            }
+        }
+
+        // target data
+        if(targets != null) {
+            for (int i = 0; i < targets.size(); i++) {
+                sb.append("<>" + targets.get(i).PID);
+            }
+        }
+
+        // shot data
+        if(shots != null) {
+            for (int i = 0; i < shots.size(); i++) {
+                sb.append("<^" + shots.get(i).PID);
+            }
+        }
+
+        // killed data
+        if(kills != null) {
+            for (int i = 0; i < kills.size(); i++) {
+                sb.append("<*" + kills.get(i).PID);
+            }
+        }
+
+        // time suspension data
+        if(timeouts != null) {
+            for (int i = 0; i < timeouts.size(); i++) {
+                sb.append("<Ø" + timeouts.get(i).saveString());
+            }
+        }
+
+        sb.append(")");
         return sb.toString();
     }
 

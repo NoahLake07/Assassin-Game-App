@@ -1,8 +1,12 @@
 package app;
 
 import FFM.FileMaster;
+import builders.PlayerBuilder;
+import builders.PlayerSaver;
 import data.Player;
 import data.Time;
+
+import data.Timeout;
 import freshui.Constants;
 import freshui.graphics.FButton;
 import freshui.gui.Header;
@@ -22,6 +26,7 @@ import java.util.Scanner;
 
 class AssassinSetup extends FreshProgram {
 
+    // type of setup chooser ui
     public void init(){
         setProgramName("Choose Action");
         setSize(300,300);
@@ -34,7 +39,7 @@ class AssassinSetup extends FreshProgram {
         Color dBC = new Color(190, 190, 190);
         Color hBC = FColor.darker(dBC, 0.8);
         Font bF = new Font("Arial",Font.PLAIN,10);
-        FButton setupPlayers = new FButton("<html>data.Player<p>Setup</html>");
+        FButton setupPlayers = new FButton("<html>Player<p>Setup</html>");
         FButton setupGame = new FButton("<html>New Game</html>");
         setupPlayers.setFont(bF);
         setupGame.setFont(bF);
@@ -83,27 +88,49 @@ class AssassinSetup extends FreshProgram {
         });
     }
 
-
     public static void main(String[] args) {
         //new AssassinSetup().start();
-        Player pl = new Player("John Miller, 100-200-3004, Works at office/");
-        pl.printContact();
 
+        Player a = Player.decodeSimple("Player A,000-000-0001,Works at office");
+        Player b = Player.decodeSimple("Player B,000-000-0002,No notes");
+        Player x = Player.decodeSimple("Player C,000-000-0003,Other notes");
+
+        a.PID = 1;
+        b.PID = 2;
+        x.PID = 3;
+
+        a.assassins.add(x);
+        b.assassins.add(a);
+        x.assassins.add(b);
+        a.targets.add(b);
+        b.targets.add(x);
+        x.targets.add(a);
+
+        a.timeouts.add(new Timeout());
+
+        ArrayList<String> y = new ArrayList<>();
+        y.add(x.save());
+        y.add(a.save());
+        y.add(b.save());
+
+        FileMaster.listToFile(y,"res/output");
     }
 
+    // program to set up player directories
     public class PlayerSetup extends FreshProgram {
 
         public void init(){
-
+            setSize(200,200);
         }
     }
 
+    // program to take player directories and make a new game
     public class GameSetup extends FreshProgram {
         File playerInput, gameOutput;
         String gameTitle = "";
 
         public void init() {
-            setSize(350, 350);
+            setSize(350, 410);
             setProgramName("New Assassin Game");
 
             Header header = new Header(getWidth(), "Assassin Game Setup Wizard", Constants.CENTER, this);
@@ -155,6 +182,10 @@ class AssassinSetup extends FreshProgram {
             selOutputFile.setSize(200, 300);
             selOutputFile.setVerticalAlignment(SwingConstants.TOP);
             add(selOutputFile, chooseGameLocation.getX() + chooseGameLocation.getWidth() + 10, chooseGameLocation.getY());
+
+            Input adminPassword = new Input("Admin Password",this);
+            adminPassword.setWidth(getWidth()-30);
+            add(adminPassword,10, chooseGameLocation.getY()+40);
 
             FButton createGame = new FButton("Create Game Files");
             createGame.setSize(getWidth() - 20, 50);
@@ -257,6 +288,7 @@ class AssassinSetup extends FreshProgram {
         }
     }
 
+    //
     public class Setup extends FileMaster {
         ArrayList<String> scannedData;
         public ArrayList<Player> participants = new ArrayList<>();
