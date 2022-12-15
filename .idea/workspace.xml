@@ -2,28 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e536d18b-4ec6-478e-a003-14dff315ca13" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assassin-Game-App.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/TestPlayerData" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/res/output" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/AssassinApp.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/AssassinSetup.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/builders/GameBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/builders/GameSaver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/builders/PlayerBuilder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/builders/PlayerSaver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/Time.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/data/Timeout.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Util/PlayerUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/data/TestData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$PlayerSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$PlayerSetup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$Setup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$Setup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/res/output" beforeDir="false" afterPath="$PROJECT_DIR$/res/output" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/AssassinSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/AssassinSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

@@ -122,6 +122,12 @@ public class Player {
     }
 
     public String saveSimple(){
+
+        /*
+        SIMPLE SAVE STRUCTURE OF THE PLAYER:
+        Name, Phone#, notes
+         */
+
         StringBuffer sb = new StringBuffer();
         sb.append(name + ",");
         sb.append(phoneNumber + ",");
@@ -131,10 +137,17 @@ public class Player {
     }
 
     public String save(){
+
+        /*
+        SAVE STRUCTURE OF THE PLAYER:
+        ( Name < Phone# < PID < notes < lives < score < killedBy-PID |
+        assassin-PID < target-PIDs < shot-PIDs < kill-PIDs < timeout-logs )
+         */
+
         StringBuffer sb = new StringBuffer();
 
         // basic data
-        sb.append("(" + name + "<" + phoneNumber + "<" + PID + "<" + notes + "<" + lives + "<");
+        sb.append("(" + name + "<" + phoneNumber + "<" + PID + "<" + notes + "<" + lives + "<" + score +"<");
         if(killedBy == null){
             sb.append(-1 + "|");
         } else {

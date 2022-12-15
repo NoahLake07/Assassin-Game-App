@@ -1,9 +1,11 @@
 package app;
 
 import FFM.FileMaster;
+import Util.PlayerUtil;
 import builders.PlayerBuilder;
 import builders.PlayerSaver;
 import data.Player;
+import data.TestData;
 import data.Time;
 
 import data.Timeout;
@@ -26,7 +28,13 @@ import java.util.Scanner;
 
 class AssassinSetup extends FreshProgram {
 
-    // type of setup chooser ui
+    public static void main(String[] args) {
+
+
+        FileMaster.listToFile(PlayerUtil.playersToSave(PlayerUtil.assignTargets(TestData.examplePlayers())),"res/output/");
+    }
+
+    // setup chooser ui
     public void init(){
         setProgramName("Choose Action");
         setSize(300,300);
@@ -86,34 +94,6 @@ class AssassinSetup extends FreshProgram {
                 setupPlayers.setColor(dBC);
             }
         });
-    }
-
-    public static void main(String[] args) {
-        //new AssassinSetup().start();
-
-        Player a = Player.decodeSimple("Player A,000-000-0001,Works at office");
-        Player b = Player.decodeSimple("Player B,000-000-0002,No notes");
-        Player x = Player.decodeSimple("Player C,000-000-0003,Other notes");
-
-        a.PID = 1;
-        b.PID = 2;
-        x.PID = 3;
-
-        a.assassins.add(x);
-        b.assassins.add(a);
-        x.assassins.add(b);
-        a.targets.add(b);
-        b.targets.add(x);
-        x.targets.add(a);
-
-        a.timeouts.add(new Timeout());
-
-        ArrayList<String> y = new ArrayList<>();
-        y.add(x.save());
-        y.add(a.save());
-        y.add(b.save());
-
-        FileMaster.listToFile(y,"res/output");
     }
 
     // program to set up player directories
@@ -288,7 +268,7 @@ class AssassinSetup extends FreshProgram {
         }
     }
 
-    //
+    // basic setup methods
     public class Setup extends FileMaster {
         ArrayList<String> scannedData;
         public ArrayList<Player> participants = new ArrayList<>();
