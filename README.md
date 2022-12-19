@@ -1,6 +1,6 @@
 # Assassin-Game-App
 This application assists moderators with managing an ASSASSIN game. In large scale games, it can get difficult 
-to moderate a game, so this application automates most of the proccesses and lets the moderator have full access 
+to moderate a game, so this application automates most of the processes and lets the moderator have full access 
 to all the data for every player.
 
 This application uses a java-based user interface and utilizes a node-like data structure within every player object 
