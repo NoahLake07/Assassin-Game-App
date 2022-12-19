@@ -6,6 +6,14 @@ to all the data for every player.
 This application uses a java-based user interface and utilizes a node-like data structure within every player object 
 that is created.
 
+## Basic Downloads
+<sub>Download the last stable version:</html>
+> Mac: [NOT AVAILABLE]
+
+> Windows: [NOT AVAILABLE]
+
+> Java Executable: [NOT AVAILABLE]
+
 ## Top features
 - Allows the moderator to setup games with an unlimited amount of players
 - The application allows for a quick search of the whole player directory to pull up their information and modify it.
