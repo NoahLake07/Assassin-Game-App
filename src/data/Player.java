@@ -149,7 +149,7 @@ public class Player {
         // basic data
         sb.append("(" + name + "<" + phoneNumber + "<" + PID + "<" + notes + "<" + lives + "<" + score +"<");
         if(killedBy == null){
-            sb.append(-1 + "|");
+            sb.append(-1 + "| \t");
         } else {
             sb.append(killedBy.PID + "|");
         }
@@ -217,11 +217,11 @@ public class Player {
         }
         System.out.println("Lives: " + lives);
         System.out.println("Targets:");
-        for (int i = 0; i < targets.size()-1; i++) {
+        for (int i = 0; i < targets.size(); i++) {
             System.out.println("> " + targets.get(i).name);
         }
         System.out.println("Assassins:");
-        for (int i = 0; i < assassins.size()-1; i++) {
+        for (int i = 0; i < assassins.size(); i++) {
             System.out.println("> " + assassins.get(i).name);
         }
         System.out.println("====================");

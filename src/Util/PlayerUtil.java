@@ -35,15 +35,39 @@ public class PlayerUtil {
             players.get(i).targets = new ArrayList<>();
 
             // find a player that is not yet targeted
-            int playerCheck = randomInt(0,players.size()-1);
-            while(players.get(playerCheck).assassins.size() >= DEFAULT_NUMBER_OF_TARGETS){
-                playerCheck = randomInt(0,players.size()-1);
+            int randomPlayer = randomInt(1,players.size()-1);
+            while(players.get(randomPlayer).assassins.size() >= DEFAULT_NUMBER_OF_TARGETS){
+                randomPlayer = randomInt(1,players.size()-1);
             }
 
             // assign the targets and assassins
-            players.get(i).targets.add(players.get(playerCheck));
-            players.get(playerCheck).assassins.add(players.get(i));
+            players.get(i).targets.add(players.get(randomPlayer));
+            System.out.println(players.get(i).name + " \t is now targeting \t " + players.get(randomPlayer).name);
+            players.get(randomPlayer).assassins.add(players.get(i));
+            System.out.println(players.get(randomPlayer).name + "'s \t assassin is now \t " + players.get(i).name);
         }
+
+        return players;
+    }
+
+    public static ArrayList<Player> printReadablePlayerTargets(ArrayList<Player> players){
+        System.out.println("PLAYER TARGETS:");
+        for (int i = 0; i < players.size(); i++) {
+            System.out.println(players.get(i).name + "\t is targeting \t" + players.get(i).targets.get(0).name);
+        }
+        System.out.println("==============");
+
+        return players;
+    }
+
+    public static ArrayList<Player> printAllPlayerData(ArrayList<Player> players){
+
+        System.out.println();
+        System.out.println("PLAYER-DATA PRINT:");
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).printContactDetails();
+        }
+        System.out.println("==============");
 
         return players;
     }
@@ -61,7 +85,7 @@ public class PlayerUtil {
         return list;
     }
 
-    public static ArrayList<String> playersToSave(ArrayList<Player> toSave){
+    public static ArrayList<String> playerDataToArray(ArrayList<Player> toSave){
         ArrayList<Player> list = toSave;
         ArrayList<String> save = new ArrayList<>();
 

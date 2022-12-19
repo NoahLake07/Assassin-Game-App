@@ -17,6 +17,7 @@ public class TestData {
             example.add(Player.decodeSimple("Player E,000-000-0005,"));
             example.add(Player.decodeSimple("Player F,000-000-0006,Nifty notes"));
             example.add(Player.decodeSimple("Player G,000-000-0007,Notes."));
+            example.add(Player.decodeSimple("Player H,000-000-0008,"));
 
             example = PlayerUtil.indexPID(example);
 

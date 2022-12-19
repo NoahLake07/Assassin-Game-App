@@ -2,13 +2,9 @@ package app;
 
 import FFM.FileMaster;
 import Util.PlayerUtil;
-import builders.PlayerBuilder;
-import builders.PlayerSaver;
 import data.Player;
 import data.TestData;
-import data.Time;
 
-import data.Timeout;
 import freshui.Constants;
 import freshui.graphics.FButton;
 import freshui.gui.Header;
@@ -29,9 +25,7 @@ import java.util.Scanner;
 class AssassinSetup extends FreshProgram {
 
     public static void main(String[] args) {
-
-
-        FileMaster.listToFile(PlayerUtil.playersToSave(PlayerUtil.assignTargets(TestData.examplePlayers())),"res/output/");
+        FileMaster.listToFile(PlayerUtil.playerDataToArray(PlayerUtil.printAllPlayerData(PlayerUtil.assignTargets(TestData.examplePlayers()))),"res/output/");
     }
 
     // setup chooser ui
