@@ -9,6 +9,17 @@ public class PlayerUtil {
     public static boolean debugMode = false;
     public static final int DEFAULT_NUMBER_OF_TARGETS = 1;
 
+    public static void printSimpleTargets(ArrayList<Player> players){
+        System.out.println();
+        System.out.println("\t ALL SIMPLE PLAYER TARGET DATA");
+        System.out.println();
+
+        for (int i = 0; i < players.size(); i++) {
+            System.out.println(players.get(i).simpleTargetString());
+        }
+        System.out.println();
+    }
+
     public static int randomInt(int min, int max){
         return (int)Math.floor(Math.random()*(max-min+1)+min);
     }
@@ -59,13 +70,6 @@ public class PlayerUtil {
 
             // add the target for the current player
             players.get(i).targets.add(players.get(randomPlayer));
-
-            // add the current player to the target's assassin list
-            players.get(randomPlayer).assassins.add(players.get(i));
-
-            // print the data to the console
-            System.out.println(players.get(randomPlayer).name + "'s \t assassin is now \t " + players.get(i).name);
-            System.out.println(players.get(i).name + " \t is now targeting \t " + players.get(randomPlayer).name);
         }
 
         // trace the targets and assign a node for the assassin data

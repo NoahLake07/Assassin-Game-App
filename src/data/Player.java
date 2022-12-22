@@ -136,6 +136,19 @@ public class Player {
         return sb.toString();
     }
 
+    public String simpleTargetString(){
+        StringBuffer sb = new StringBuffer();
+        sb.append("["+name + "]" + "\t");
+        for (int i = 0; i < targets.size(); i++) {
+            sb.append(" >"+ targets.get(i).name);
+        }
+        for (int i = 0; i < assassins.size(); i++) {
+            sb.append(" §"+ assassins.get(i).name);
+        }
+
+        return String.valueOf(sb);
+    }
+
     public String save(){
 
         /*

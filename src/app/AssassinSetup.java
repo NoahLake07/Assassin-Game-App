@@ -25,7 +25,7 @@ import java.util.Scanner;
 class AssassinSetup extends FreshProgram {
 
     public static void main(String[] args) {
-        new AssassinSetup().test2();
+        new AssassinSetup().test1();
     }
 
     public void test1(){
@@ -36,13 +36,18 @@ class AssassinSetup extends FreshProgram {
         players = PlayerUtil.assignTargets(players);
 
         // assign assassins based on targets
-        players = PlayerUtil.updateAssassins(players);
+        //players = PlayerUtil.updateAssassins(players);
+
+        System.out.println("______________________________________________|");
 
         // print out the player target data
         PlayerUtil.printAllPlayerTargets(players);
 
         // check for players assigned to themselves
         PlayerUtil.checkForSuicidalTargets(players);
+
+        // print simplified targets of players
+        PlayerUtil.printSimpleTargets(players);
 
         // convert all the player data to a save string array
         ArrayList<String> playerSaveData = PlayerUtil.playerDataToArray(players);
