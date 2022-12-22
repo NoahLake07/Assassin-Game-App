@@ -25,7 +25,50 @@ import java.util.Scanner;
 class AssassinSetup extends FreshProgram {
 
     public static void main(String[] args) {
-        FileMaster.listToFile(PlayerUtil.playerDataToArray(PlayerUtil.printAllPlayerData(PlayerUtil.assignTargets(TestData.examplePlayers()))),"res/output/");
+        new AssassinSetup().test2();
+    }
+
+    public void test1(){
+        // create the players from the test data
+        ArrayList<Player> players = TestData.exampleSimplePlayers();
+
+        // randomly assign targets
+        players = PlayerUtil.assignTargets(players);
+
+        // assign assassins based on targets
+        players = PlayerUtil.updateAssassins(players);
+
+        // print out the player target data
+        PlayerUtil.printAllPlayerTargets(players);
+
+        // check for players assigned to themselves
+        PlayerUtil.checkForSuicidalTargets(players);
+
+        // convert all the player data to a save string array
+        ArrayList<String> playerSaveData = PlayerUtil.playerDataToArray(players);
+
+        // stream the player data into the test output file
+        FileMaster.listToFile(playerSaveData, "testData/output/");
+    }
+
+    public void test2(){
+        ArrayList<Player> players = TestData.suicidalPlayers();
+
+
+        // assign assassins based on targets
+                players = PlayerUtil.updateAssassins(players);
+
+        // check for players assigned to themselves
+        PlayerUtil.checkForSuicidalTargets(players);
+
+        // print out the player target data
+        PlayerUtil.printAllPlayerTargets(players);
+
+        // convert all the player data to a save string array
+        ArrayList<String> playerSaveData = PlayerUtil.playerDataToArray(players);
+
+        // stream the player data into the test output file
+        FileMaster.listToFile(playerSaveData, "testData/output/");
     }
 
     // setup chooser ui

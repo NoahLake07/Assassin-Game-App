@@ -27,24 +27,91 @@ public class PlayerUtil {
             // number of players is odd
         }
 
-        // loop through the players
+        // loop through the players and assign targets
         for (int i = 0; i < players.size(); i++) {
 
             // reset all values of the players
             players.get(i).assassins = new ArrayList<>();
             players.get(i).targets = new ArrayList<>();
 
-            // find a player that is not yet targeted
-            int randomPlayer = randomInt(1,players.size()-1);
-            while(players.get(randomPlayer).assassins.size() >= DEFAULT_NUMBER_OF_TARGETS){
+
+            // instantiate random int
+            int randomPlayer=randomInt(1,players.size()-1);
+
+            /*  while the random player is assigned to someone who already has a target,
+                generate a different number. In other words, make sure that the random
+                player that will be targeted by this player does not already have an assassin.
+             */
+            do {
                 randomPlayer = randomInt(1,players.size()-1);
+                System.out.println("randomizing for \t" + players.get(i).name);
+            } while (
+                     players.get(randomPlayer).assassins.size() >= DEFAULT_NUMBER_OF_TARGETS // random player's assassin list size is more than a specified amount
+                     || players.get(randomPlayer) == players.get(i) // random player selected is the same player
+                    );
+
+            if(
+                    players.get(randomPlayer).assassins.size() >= DEFAULT_NUMBER_OF_TARGETS // random player's assassin list size is more than a specified amount
+                    || players.get(randomPlayer) == players.get(i) // random player selected is the same player
+            ){
+                System.out.println(">> RANDOMIZING LOOP FAILED TO SEE THAT \t"+ players.get(i).name +"\t TARGETS ITSELF <<");
             }
 
-            // assign the targets and assassins
+            // add the target for the current player
             players.get(i).targets.add(players.get(randomPlayer));
-            System.out.println(players.get(i).name + " \t is now targeting \t " + players.get(randomPlayer).name);
+
+            // add the current player to the target's assassin list
             players.get(randomPlayer).assassins.add(players.get(i));
+
+            // print the data to the console
             System.out.println(players.get(randomPlayer).name + "'s \t assassin is now \t " + players.get(i).name);
+            System.out.println(players.get(i).name + " \t is now targeting \t " + players.get(randomPlayer).name);
+        }
+
+        // trace the targets and assign a node for the assassin data
+        //players = updateAssassins(players);
+
+        return players;
+    }
+
+    public static void checkForSuicidalTargets(ArrayList<Player> players){
+        for (int i = 0; i < players.size(); i++) {
+            if(players.get(i).targets.contains(players.get(i))){
+                System.out.println("> "+players.get(i).name + "\t is targeting themselves.");
+            }
+        }
+    }
+
+    /**
+     * Using existing target data, this method goes through all players from the list
+     * inputted through the parameter, assigns a value to the assassin data of the players,
+     * and returns the new list with the updated data.
+     * @return updated list containing player data with new assassins assigned based from
+     * given targets.
+     */
+    public static ArrayList<Player> updateAssassins(ArrayList<Player> players){
+
+        // loop through the players
+        for (int i = 0; i < players.size(); i++) {
+            // check to see if the data is null
+            if(players.get(i).targets == null){
+                System.out.println(">> CANNOT ASSIGN NULL DATA TO '"+ players.get(i).name+"' <<");
+            } else {
+                // print out the quantity of targets that the player has
+                System.out.println("> "+ players.get(i).name + "\t has " + players.get(i).targets.size() + "\t targets.");
+
+                // delete all assassin data of target to be ready for the refresh
+                players.get(i).assassins = new ArrayList<>();
+
+                // loop through all the targets of the specified player
+                for (int j = 0; j < players.get(i).targets.size(); j++) {
+                    // get the current target
+                    Player target = players.get(i).targets.get(j);
+
+                    // directly add the assassin to the target's data
+                    players.get(target.PID-1).assassins.add(players.get(i));
+                }
+            }
         }
 
         return players;
@@ -72,6 +139,18 @@ public class PlayerUtil {
         return players;
     }
 
+    public static ArrayList<Player> printAllPlayerTargets(ArrayList<Player> players){
+
+        System.out.println();
+        System.out.println("\t ALL PLAYER TARGETING DATA:");
+        for (int i = 0; i < players.size(); i++) {
+            players.get(i).printContactTargets();
+        }
+        System.out.println("==============");
+
+        return players;
+    }
+
     public static ArrayList<Player> indexPID(ArrayList<Player> toIndex){
         ArrayList<Player> list = toIndex;
 
@@ -92,7 +171,7 @@ public class PlayerUtil {
         for (int i = 0; i < list.size(); i++) {
             save.add(list.get(i).save());
             if(debugMode){
-                System.out.println("Saved " +list.get(i).name+"'s data to list");
+                System.out.println("Saved " + list.get(i).name+"'s data to list");
             }
         }
 

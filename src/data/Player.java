@@ -203,6 +203,21 @@ public class Player {
         System.out.println();
     }
 
+    public void printContactTargets(){
+        System.out.println();
+        System.out.println("=== "+name+" ===");
+        System.out.println("Targets:");
+        for (int i = 0; i < targets.size(); i++) {
+            System.out.println("> " + targets.get(i).name);
+        }
+        System.out.println("Assassins:");
+        for (int i = 0; i < assassins.size(); i++) {
+            System.out.println("> " + assassins.get(i).name);
+        }
+        System.out.println("====================");
+        System.out.println();
+    }
+
     public void printContactDetails() {
         System.out.println("=== CONTACT INFO ===");
         System.out.println("Name:" + name);
