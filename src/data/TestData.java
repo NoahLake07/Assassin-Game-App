@@ -41,4 +41,39 @@ public class TestData {
                 return example;
         }
 
+        public static ArrayList<Player> examplePlayers1(){
+
+                /*
+                This group of test players contains 4 players. The players are loaded
+                from simple saves, and then indexed.
+
+                Player A > Player C
+                Player B > Player D
+                Player C > Player A
+                Player D > Player B
+
+                 */
+
+                ArrayList<Player> example = new ArrayList<>();
+                example.add(Player.decodeSimple("Player A,000-000-0001,notes"));
+                example.add(Player.decodeSimple("Player B,000-000-0002,notes"));
+                example.add(Player.decodeSimple("Player C,000-000-0003,notes"));
+                example.add(Player.decodeSimple("Player D,000-000-0004,notes"));
+
+                // index players
+                example = PlayerUtil.indexPID(example);
+
+                for (int i = 0; i < example.size(); i++) {
+                     example.get(i).targets = new ArrayList<>();
+                }
+
+                // assign targets
+                example.get(0).targets.add(example.get(2));
+                example.get(1).targets.add(example.get(3));
+                example.get(2).targets.add(example.get(0));
+                example.get(3).targets.add(example.get(1));
+
+                return example;
+        }
+
 }

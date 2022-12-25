@@ -1,7 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e536d18b-4ec6-478e-a003-14dff315ca13" name="Changes" comment="" />
+    <list default="true" id="e536d18b-4ec6-478e-a003-14dff315ca13" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/Util/PlayerUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/Util/PlayerUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinApp.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$PlayerSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$PlayerSetup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$Setup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$Setup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/builders/GameBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/builders/GameBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/builders/GameSaver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/builders/GameSaver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/builders/PlayerBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/builders/PlayerBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/builders/PlayerSaver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/builders/PlayerSaver.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/data/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/data/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/data/TestData.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/data/TestData.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/data/Time.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/data/Time.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/data/Timeout.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/data/Timeout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Util/PlayerUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/PlayerUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app/AssassinSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/AssassinSetup.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/data/TestData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/TestData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/testData/output" beforeDir="false" afterPath="$PROJECT_DIR$/testData/output" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -26,16 +52,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "last_opened_file_path": "C:/Users/noahl/Documents/Documents/Programming/Projects/Assassin-Game-App/dependencies/FreshUI.jar",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/noahl/Documents/Documents/Programming/Projects/Assassin-Game-App/dependencies/FreshUI.jar&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />

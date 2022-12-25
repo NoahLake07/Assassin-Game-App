@@ -121,6 +121,21 @@ public class PlayerUtil {
         return players;
     }
 
+    public static ArrayList<Player> getAllAssassinsOfPlayer(ArrayList<Player> players, Player player){
+
+        ArrayList<Player> foundPlayers = new ArrayList<>();
+
+        for (int i = 0; i < players.size(); i++) {
+            // if the current player has player as a target, add them to the list
+            if(players.get(i).targets.contains(player)){
+                foundPlayers.add(players.get(i));
+                System.out.println(player.name + "\t is the assassin of \t" + players.get(i).name);
+            }
+        }
+
+        return foundPlayers;
+    }
+
     public static ArrayList<Player> printReadablePlayerTargets(ArrayList<Player> players){
         System.out.println("PLAYER TARGETS:");
         for (int i = 0; i < players.size(); i++) {
