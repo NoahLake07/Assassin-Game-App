@@ -34,7 +34,9 @@ class AssassinSetup extends FreshProgram {
       others do not. Figure out a way to scan the targeting lists and assign
       the target an assassin, ensuring that every single player is accurate.
     - Complete the player directory creator, and test the compatibility with
-      the game setup off the .pldir file.
+      the game setup off the .pldir file. The UI pops up, but the file still needs
+      to be created and the button support for adding a line of text needs to be
+      added to the Mouse Adapter.
     - Fix FreshUI to support Input visibility changes
      */
 
