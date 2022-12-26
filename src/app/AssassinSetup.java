@@ -1,7 +1,10 @@
 package app;
 
+import Debug.ConsoleColor;
+import Debug.Printer;
 import FFM.FileMaster;
 import Util.PlayerUtil;
+import builders.GameSaver;
 import data.Player;
 import data.TestData;
 
@@ -19,13 +22,24 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 class AssassinSetup extends FreshProgram {
 
+    /* TODO:
+    - Fix the assassin lists to accurately show what the targets
+      lists show. Currently they unexpectedly show up in some places and
+      others do not. Figure out a way to scan the targeting lists and assign
+      the target an assassin, ensuring that every single player is accurate.
+    - Complete the player directory creator, and test the compatibility with
+      the game setup off the .pldir file.
+    - Fix FreshUI to support Input visibility changes
+     */
+
     public static void main(String[] args) {
-        new AssassinSetup().test3();
+        new PlayerSetup().start();
     }
 
     public void test1(){
@@ -84,6 +98,9 @@ class AssassinSetup extends FreshProgram {
         // check for players assigned to themselves
         PlayerUtil.checkForSuicidalTargets(players);
 
+        // using existing target data, create assassin data
+        players = PlayerUtil.updateAssassins(players);
+
         // print simplified targets of players
         PlayerUtil.printSimpleTargets(players);
 
@@ -92,6 +109,30 @@ class AssassinSetup extends FreshProgram {
 
         // stream the player data into the test output file
         FileMaster.listToFile(playerSaveData, "testData/output/");
+    }
+
+    public void gameSaveTest(){
+        try {
+            GameSaver.saveGame("Test Game",TestData.examplePlayers1(),"testData/gameSave1",
+                    "1234","abcd","8012223334");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void debugColorTest(){
+        System.out.print(ConsoleColor.BLACK_BOLD);
+        System.out.println("Black_Bold");
+        System.out.print(ConsoleColor.RESET);
+
+        System.out.print(ConsoleColor.YELLOW);
+        System.out.print(ConsoleColor.BLUE_BACKGROUND);
+        System.out.println("YELLOW & BLUE");
+        System.out.print(ConsoleColor.RESET);
+
+        System.out.print(ConsoleColor.YELLOW);
+        System.out.println("YELLOW");
+        System.out.print(ConsoleColor.RESET);
     }
 
     // setup chooser ui
@@ -157,10 +198,94 @@ class AssassinSetup extends FreshProgram {
     }
 
     // program to set up player directories
-    public class PlayerSetup extends FreshProgram {
+    public static class PlayerSetup extends FreshProgram {
+
+        Color buttonNorm, buttonHov;
 
         public void init(){
-            setSize(200,200);
+            setSize(300,300);
+            setProgramName("Initialize Players");
+
+            // setup colors
+            buttonNorm = new Color(171, 204, 204);
+            buttonHov = FColor.darker(buttonNorm,0.9);
+
+            // header
+            Header header = new Header(getWidth(),"<html>Create Player Directory</html>",CENTER,this);
+            header.setColor(new Color(213, 122, 122));
+            add(header,0,0);
+
+            // name input
+            Input name = new Input("Player Name:",this);
+            name.setSize(getWidth()-20,getHeight()/10);
+            name.setColor(new Color(225, 185, 153));
+            add(name,10,header.getHeight()+10);
+
+            // phone number input
+            Input phoneNum = new Input("Phone Number",this);
+            phoneNum.setSize(getWidth()-20,getHeight()/10);
+            phoneNum.setColor(new Color(176, 235, 153));
+            add(phoneNum,10,name.getY()+name.getHeight()+10);
+
+            // notes/bio input
+            Input notes = new Input("Notes/Bio",this);
+            notes.setSize(getWidth()-20,getHeight()/9);
+            notes.setColor(new Color(232, 235, 153));
+            add(notes,10,phoneNum.getY()+phoneNum.getHeight()+10);
+
+            // clear button
+            FButton clearBtn = new FButton("Clear",getWidth()/4,getHeight()/13);
+            add(clearBtn, 10, notes.getY()+notes.getHeight()+13);
+            clearBtn.setCornerRadius(5);
+            clearBtn.setColor(new Color(203, 118, 86));
+            clearBtn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    name.setInputText("");
+                    notes.setInputText("");
+                    phoneNum.setInputText("");
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    clearBtn.setColor(new Color(208, 107, 73));
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    clearBtn.setColor(new Color(203, 118, 86));
+                }
+            });
+
+            // write player to file button
+            FButton writeBtn = new FButton("Write Player To File",getWidth()-20,getHeight()*0.2);
+            add(writeBtn, 10, getHeight()-writeBtn.getHeight()-10);
+            writeBtn.setCornerRadius(5);
+            writeBtn.setColor(buttonNorm);
+            writeBtn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    Printer.println("\t > PLAYER ADDED <", Printer.BLUE);
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    writeBtn.setColor(buttonHov);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    writeBtn.setColor(buttonNorm);
+                }
+            });
+
+            // hide all components
+            // TODO update FreshUI Inputs to support visibility changes
+            name.setVisible(false);
+            phoneNum.setVisible(false);
+            notes.setVisible(false);
+            clearBtn.setVisible(false);
+            writeBtn.setVisible(false);
         }
     }
 

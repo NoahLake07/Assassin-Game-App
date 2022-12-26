@@ -1,5 +1,6 @@
 package Util;
 
+import Debug.Printer;
 import data.Player;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ public class PlayerUtil {
 
         for (int i = 0; i < players.size(); i++) {
             System.out.println(players.get(i).simpleTargetString());
+            Printer.println(players.get(i).name + "\t has " + players.get(i).targets.size()+ " targets and " + players.get(i).assassins.size() + " assassins.", Printer.YELLOW);
         }
         System.out.println();
     }
@@ -95,25 +97,24 @@ public class PlayerUtil {
      */
     public static ArrayList<Player> updateAssassins(ArrayList<Player> players){
 
+        Printer.println("Updating Assassins...",Printer.GREEN_BRIGHT);
+
         // loop through the players
         for (int i = 0; i < players.size(); i++) {
             // check to see if the data is null
             if(players.get(i).targets == null){
-                System.out.println(">> CANNOT ASSIGN NULL DATA TO '"+ players.get(i).name+"' <<");
+                Printer.println(">> CANNOT ASSIGN NULL DATA TO '"+ players.get(i).name+"' <<", Printer.RED);
             } else {
-                // print out the quantity of targets that the player has
-                System.out.println("> "+ players.get(i).name + "\t has " + players.get(i).targets.size() + "\t targets.");
-
-                // delete all assassin data of target to be ready for the refresh
+                // instantiate assassins ArrayList
                 players.get(i).assassins = new ArrayList<>();
 
+                Printer.println("\t> "+"Found " + players.get(i).targets.size() + " targets in " + players.get(i).name +"'s data.", Printer.GREEN);
                 // loop through all the targets of the specified player
                 for (int j = 0; j < players.get(i).targets.size(); j++) {
-                    // get the current target
-                    Player target = players.get(i).targets.get(j);
-
                     // directly add the assassin to the target's data
-                    players.get(target.PID-1).assassins.add(players.get(i));
+                    players.get(players.get(i).targets.get(j).PID-1).assassins.add(players.get(i));
+
+                    Printer.println("\t  "+players.get(i).targets.get(players.get(i).targets.size()-1).name + "\t now has " + players.get(i).targets.get(j).assassins.size() + " assassins", Printer.YELLOW);
                 }
             }
         }
