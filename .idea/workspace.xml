@@ -2,26 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e536d18b-4ec6-478e-a003-14dff315ca13" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Debug/ConsoleColor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Debug/Printer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/Util/PlayerUtil.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/Util/PlayerUtil.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assassin-Game-App.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Assassin-Game-App.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$GameSetup.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$PlayerSetup$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$PlayerSetup$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$PlayerSetup$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$PlayerSetup$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$PlayerSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$PlayerSetup.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$Setup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup$Setup.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/app/AssassinSetup.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/builders/GameSaver.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/builders/GameSaver.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Assassin-Game-App/data/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Assassin-Game-App/data/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Util/PlayerUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Util/PlayerUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app/AssassinSetup.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/AssassinSetup.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/builders/GameSaver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/builders/GameSaver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testData/output" beforeDir="false" afterPath="$PROJECT_DIR$/testData/output" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,6 +55,40 @@
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="RunManager" selected="Application.AssassinSetup">
+    <configuration name="AssassinSetup$PlayerSetup" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="app.AssassinSetup$PlayerSetup" />
+      <module name="Assassin-Game-App" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AssassinSetup" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="app.AssassinSetup" />
+      <module name="Assassin-Game-App" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.AssassinSetup" />
+        <item itemvalue="Application.AssassinSetup$PlayerSetup" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">

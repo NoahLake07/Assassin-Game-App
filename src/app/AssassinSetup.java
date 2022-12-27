@@ -22,6 +22,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -38,6 +39,8 @@ class AssassinSetup extends FreshProgram {
       to be created and the button support for adding a line of text needs to be
       added to the Mouse Adapter.
     - Fix FreshUI to support Input visibility changes
+    - Fix player dir setup to work and make a new line, and check for null before
+      adding to the file
      */
 
     public static void main(String[] args) {
@@ -202,20 +205,42 @@ class AssassinSetup extends FreshProgram {
     // program to set up player directories
     public static class PlayerSetup extends FreshProgram {
 
+        // Setup variables
+        String pldirPath;
+
+        // UI components
         Color buttonNorm, buttonHov;
+        Header header;
+        FButton continueBtn;
+        Input path;
 
         public void init(){
             setSize(300,300);
             setProgramName("Initialize Players");
 
+            // setup header
+            header = new Header(getWidth(),"<html>Create Player Directory</html>",CENTER,this);
+            header.setColor(new Color(213, 122, 122));
+            add(header,0,0);
+
+            chooseLocationPage();
+
+        }
+
+        private void playerSetupPage(){
+            // hide all components from previous page
+            continueBtn.setVisible(false);
+            path.setVisible(false);
+            path.setVisible(false);
+            path.setVisible(false);
+            path.setVisible(false);
+            path.setVisible(false);
+            Printer.println("\t > PLDIR SAVE LOCATION SET TO: " + pldirPath, Printer.CYAN);
+
+            //* SETUP PAGE
             // setup colors
             buttonNorm = new Color(171, 204, 204);
             buttonHov = FColor.darker(buttonNorm,0.9);
-
-            // header
-            Header header = new Header(getWidth(),"<html>Create Player Directory</html>",CENTER,this);
-            header.setColor(new Color(213, 122, 122));
-            add(header,0,0);
 
             // name input
             Input name = new Input("Player Name:",this);
@@ -267,7 +292,30 @@ class AssassinSetup extends FreshProgram {
             writeBtn.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    Printer.println("\t > PLAYER ADDED <", Printer.BLUE);
+                    // attempt to create a file from the given directory
+                    File pldir = new File(pldirPath);
+                    if(pldir.exists()){
+                        Printer.println("\t Creation of pldir file was SUCCESSFUL.", Printer.GREEN);
+                    } else {
+                        Printer.println("\t Creation of pldir file FAILED.", Printer.RED);
+                    }
+
+                    try {
+                        // create the writer, append existing information to the file
+                        FileWriter writer = new FileWriter(pldir.getPath(), true);
+
+                        // add the new line
+                        writer.append(new Player(name.getInputText(),phoneNum.getInputText(),notes.getInputText()).saveSimple());
+
+                        // finish the file
+                        writer.close();
+
+                        // print success line to console
+                        Printer.println("\t > PLAYER WAS SUCCESSFULLY ADDED <", Printer.BLUE);
+
+                    } catch (IOException ex) {
+                        throw new RuntimeException(ex);
+                    }
                 }
 
                 @Override
@@ -280,14 +328,52 @@ class AssassinSetup extends FreshProgram {
                     writeBtn.setColor(buttonNorm);
                 }
             });
+        }
 
-            // hide all components
-            // TODO update FreshUI Inputs to support visibility changes
-            name.setVisible(false);
-            phoneNum.setVisible(false);
-            notes.setVisible(false);
-            clearBtn.setVisible(false);
-            writeBtn.setVisible(false);
+        private void chooseLocationPage(){
+
+            Color norm = new Color(109, 210, 117);
+            Color hover = FColor.darker(norm,0.85);
+
+            //* PAGE SETUP
+            // Input: save location of the Player Directory file (.pldir)
+            path = new Input("Save Player Dir To:",this);
+            path.setSize(getWidth()-20,getHeight()/8);
+            add(path, 10,header.getHeight()+10);
+            path.setColor(new Color(140, 197, 232));
+
+            // Button: continue
+            continueBtn = new FButton("Continue",getWidth()-20, getHeight()/7);
+            continueBtn.setColor(norm);
+            continueBtn.setCornerRadius(5);
+            add(continueBtn, 10, getHeight()- continueBtn.getHeight()-10);
+            continueBtn.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+
+                    if(path.getInputText().equals("")){
+                        // if the input is invalid, print the error to the console
+                        Printer.println("INVALID TOKEN: Cannot accept a blank path for the player directory.", Printer.RED_BRIGHT);
+                    } else {
+                        // accept input and continue to next page
+                        pldirPath = path.getInputText();
+                        continueBtn.setVisible(false);
+                        path.setVisible(false);
+                        playerSetupPage();
+                    }
+                }
+
+                @Override
+                public void mouseEntered(MouseEvent e) {
+                    continueBtn.setColor(hover);
+                }
+
+                @Override
+                public void mouseExited(MouseEvent e) {
+                    continueBtn.setColor(norm);
+                }
+            });
+
         }
     }
 
