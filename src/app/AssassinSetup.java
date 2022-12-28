@@ -1,10 +1,10 @@
 package app;
 
-import Debug.ConsoleColor;
 import Debug.Printer;
 import FFM.FileMaster;
 import Util.PlayerUtil;
-import builders.GameSaver;
+import builders.PlayerBuilder;
+import data.Game;
 import data.Player;
 import data.TestData;
 
@@ -34,19 +34,13 @@ class AssassinSetup extends FreshProgram {
       lists show. Currently they unexpectedly show up in some places and
       others do not. Figure out a way to scan the targeting lists and assign
       the target an assassin, ensuring that every single player is accurate.
-    - Complete the player directory creator, and test the compatibility with
-      the game setup off the .pldir file. The UI pops up, but the file still needs
-      to be created and the button support for adding a line of text needs to be
-      added to the Mouse Adapter.
-    - Fix FreshUI to support Input visibility changes
-    - Fix player dir setup to work and make a new line, and check for null before
-      adding to the file
+    -
      */
 
-    public static void main(String[] args) {
-        new PlayerSetup().start();
-    }
-
+    /**
+     * Creates players and then saves the player save strings to their own lines
+     * in a file located in the testData folder.
+     */
     public void test1(){
         // create the players from the test data
         ArrayList<Player> players = TestData.exampleSimplePlayers();
@@ -71,10 +65,14 @@ class AssassinSetup extends FreshProgram {
         // convert all the player data to a save string array
         ArrayList<String> playerSaveData = PlayerUtil.playerDataToArray(players);
 
-        // stream the player data into the test output file
-        FileMaster.listToFile(playerSaveData, "testData/output/");
+        // stream the player data into the test playerSaveTests file
+        FileMaster.listToFile(playerSaveData, "testData/playerSaveTests/");
     }
 
+    /**
+     * Checks for players targeting themselves. If the player method works, the console should
+     * read that both players in the example directory target themselves.
+     */
     public void test2(){
         ArrayList<Player> players = TestData.suicidalPlayers();
 
@@ -90,15 +88,16 @@ class AssassinSetup extends FreshProgram {
         // convert all the player data to a save string array
         ArrayList<String> playerSaveData = PlayerUtil.playerDataToArray(players);
 
-        // stream the player data into the test output file
-        FileMaster.listToFile(playerSaveData, "testData/output/");
+        // stream the player data into the test playerSaveTests file
+        FileMaster.listToFile(playerSaveData, "testData/playerSaveTests/");
     }
 
+    /**
+     * Tests the functionality of the automated assassin setter. If it works, the
+     * target data should match the assassin data.
+     */
     public void test3(){
         ArrayList<Player> players = TestData.examplePlayers1();
-
-        // print out the assassin data
-        PlayerUtil.getAllAssassinsOfPlayer(players,players.get(0));
 
         // check for players assigned to themselves
         PlayerUtil.checkForSuicidalTargets(players);
@@ -112,32 +111,21 @@ class AssassinSetup extends FreshProgram {
         // convert all the player data to a save string array
         ArrayList<String> playerSaveData = PlayerUtil.playerDataToArray(players);
 
-        // stream the player data into the test output file
-        FileMaster.listToFile(playerSaveData, "testData/output/");
+        // stream the player data into the test playerSaveTests file
+        FileMaster.listToFile(playerSaveData, "testData/playerSaveTests/");
     }
 
+    /**
+     * Tests the functionality of the game save. An example game will be saved to the
+     * gameSave1.asn file in the testData folder.
+     */
     public void gameSaveTest(){
         try {
-            GameSaver.saveGame("Test Game",TestData.examplePlayers1(),"testData/gameSave1",
+            Game.Saver.saveGame("Test Game",TestData.examplePlayers1(),"testData/gameSave1",
                     "1234","abcd","8012223334");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public void debugColorTest(){
-        System.out.print(ConsoleColor.BLACK_BOLD);
-        System.out.println("Black_Bold");
-        System.out.print(ConsoleColor.RESET);
-
-        System.out.print(ConsoleColor.YELLOW);
-        System.out.print(ConsoleColor.BLUE_BACKGROUND);
-        System.out.println("YELLOW & BLUE");
-        System.out.print(ConsoleColor.RESET);
-
-        System.out.print(ConsoleColor.YELLOW);
-        System.out.println("YELLOW");
-        System.out.print(ConsoleColor.RESET);
     }
 
     // setup chooser ui
@@ -209,10 +197,13 @@ class AssassinSetup extends FreshProgram {
         String pldirPath;
 
         // UI components
-        Color buttonNorm, buttonHov;
+        Color buttonNorm, buttonHov, norm, hover;
         Header header;
-        FButton continueBtn;
-        Input path;
+        FButton continueBtn, writeBtn, clearBtn;
+        Input path, name, phoneNum, notes;
+
+        // saved file
+        File pldir = null;
 
         public void init(){
             setSize(300,300);
@@ -223,11 +214,10 @@ class AssassinSetup extends FreshProgram {
             header.setColor(new Color(213, 122, 122));
             add(header,0,0);
 
-            chooseLocationPage();
-
+            chooseFileLocation();
         }
 
-        private void playerSetupPage(){
+        private void setupUI(){
             // hide all components from previous page
             continueBtn.setVisible(false);
             path.setVisible(false);
@@ -235,33 +225,31 @@ class AssassinSetup extends FreshProgram {
             path.setVisible(false);
             path.setVisible(false);
             path.setVisible(false);
-            Printer.println("\t > PLDIR SAVE LOCATION SET TO: " + pldirPath, Printer.CYAN);
 
-            //* SETUP PAGE
             // setup colors
             buttonNorm = new Color(171, 204, 204);
             buttonHov = FColor.darker(buttonNorm,0.9);
 
             // name input
-            Input name = new Input("Player Name:",this);
+            name = new Input("Player Name:",this);
             name.setSize(getWidth()-20,getHeight()/10);
             name.setColor(new Color(225, 185, 153));
             add(name,10,header.getHeight()+10);
 
             // phone number input
-            Input phoneNum = new Input("Phone Number",this);
+            phoneNum = new Input("Phone Number",this);
             phoneNum.setSize(getWidth()-20,getHeight()/10);
             phoneNum.setColor(new Color(176, 235, 153));
             add(phoneNum,10,name.getY()+name.getHeight()+10);
 
             // notes/bio input
-            Input notes = new Input("Notes/Bio",this);
+            notes = new Input("Notes/Bio",this);
             notes.setSize(getWidth()-20,getHeight()/9);
             notes.setColor(new Color(232, 235, 153));
             add(notes,10,phoneNum.getY()+phoneNum.getHeight()+10);
 
             // clear button
-            FButton clearBtn = new FButton("Clear",getWidth()/4,getHeight()/13);
+            clearBtn = new FButton("Clear",getWidth()/4,getHeight()/13);
             add(clearBtn, 10, notes.getY()+notes.getHeight()+13);
             clearBtn.setCornerRadius(5);
             clearBtn.setColor(new Color(203, 118, 86));
@@ -285,36 +273,56 @@ class AssassinSetup extends FreshProgram {
             });
 
             // write player to file button
-            FButton writeBtn = new FButton("Write Player To File",getWidth()-20,getHeight()*0.2);
+            writeBtn = new FButton("Write Player To File",getWidth()-20,getHeight()*0.2);
             add(writeBtn, 10, getHeight()-writeBtn.getHeight()-10);
             writeBtn.setCornerRadius(5);
             writeBtn.setColor(buttonNorm);
+        }
+
+        private void addPlayerToFile(String playerInfo){
+            if(pldir != null) {
+                try {
+                    // create the writer, append existing information to the file
+                    FileWriter writer = new FileWriter(pldir, true);
+
+                    // add the new line
+                    writer.append(playerInfo + "\r");
+
+                    // finish the file
+                    writer.close();
+
+                    // print success line to console
+                    Printer.println("\t > PLAYER WAS SUCCESSFULLY ADDED <", Printer.BLUE);
+
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }else{
+                Printer.println("\t ! CANNOT SAVE PLAYER TO A NULL FILE", Printer.RED_BRIGHT);
+            }
+
+        }
+
+        private void playerSetupPage(){
+            setupUI();
+
+            // add functionality of write button
             writeBtn.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    // attempt to create a file from the given directory
-                    File pldir = new File(pldirPath);
-                    if(pldir.exists()){
-                        Printer.println("\t Creation of pldir file was SUCCESSFUL.", Printer.GREEN);
-                    } else {
-                        Printer.println("\t Creation of pldir file FAILED.", Printer.RED);
+
+                    if (pldir == null) {
+                        // create the file to avoid null reference exception
+                        pldir = new File(pldirPath);
+                        Printer.println("\t * SPECIFIED PATH OF FILE: " + pldirPath, Printer.YELLOW);
                     }
 
-                    try {
-                        // create the writer, append existing information to the file
-                        FileWriter writer = new FileWriter(pldir.getPath(), true);
 
-                        // add the new line
-                        writer.append(new Player(name.getInputText(),phoneNum.getInputText(),notes.getInputText()).saveSimple());
-
-                        // finish the file
-                        writer.close();
-
-                        // print success line to console
-                        Printer.println("\t > PLAYER WAS SUCCESSFULLY ADDED <", Printer.BLUE);
-
-                    } catch (IOException ex) {
-                        throw new RuntimeException(ex);
+                    // add the player if the file is not null
+                    if(!(name.getInputText().equals("") || phoneNum.getInputText().equals(""))) {
+                        addPlayerToFile(new Player(name.getInputText(), phoneNum.getInputText(), notes.getInputText()).saveSimple());
+                    } else {
+                        Printer.println("\t ! CANNOT CREATE A NEW PLAYER WITHOUT A NAME AND PHONE NUMBER.", Printer.RED_BRIGHT);
                     }
                 }
 
@@ -330,12 +338,11 @@ class AssassinSetup extends FreshProgram {
             });
         }
 
-        private void chooseLocationPage(){
+        private void chooseFileLocation(){
 
-            Color norm = new Color(109, 210, 117);
-            Color hover = FColor.darker(norm,0.85);
+            norm = new Color(109, 210, 117);
+            hover = FColor.darker(norm,0.85);
 
-            //* PAGE SETUP
             // Input: save location of the Player Directory file (.pldir)
             path = new Input("Save Player Dir To:",this);
             path.setSize(getWidth()-20,getHeight()/8);
@@ -357,6 +364,7 @@ class AssassinSetup extends FreshProgram {
                     } else {
                         // accept input and continue to next page
                         pldirPath = path.getInputText();
+                        Printer.println("\t > PLDIR SAVE LOCATION SET TO: " + pldirPath, Printer.CYAN);
                         continueBtn.setVisible(false);
                         path.setVisible(false);
                         playerSetupPage();
@@ -476,10 +484,11 @@ class AssassinSetup extends FreshProgram {
                 @Override
                 public void mouseClicked(MouseEvent e) {
                     if (selectedFile != null && gameOutput != null) {
-                        File selected = gameOutput;
-                        Setup setupWizard = new Setup();
-                        setupWizard.loadProfiles(selected.getPath());
-                        setupWizard.exportGame(gameOutput.getPath(), "Assassin Game 1");
+                        PlayerBuilder playerBuilder = new PlayerBuilder(playerInput);
+                        ArrayList<Player> players = playerBuilder.getPlayerData();
+                        Game game = new Game(players,gameTitle.getInputText(),"TWILIO_SID","TWILIO_AUTH_TOKEN","TWILIO_NUMBER");
+
+                        Game.Saver.saveGame(game,gameOutput.getPath());
                     }
                 }
 
@@ -541,7 +550,7 @@ class AssassinSetup extends FreshProgram {
         }
     }
 
-    // basic setup methods
+    // basic setup tools
     public class Setup extends FileMaster {
         ArrayList<String> scannedData;
         public ArrayList<Player> participants = new ArrayList<>();
@@ -612,6 +621,10 @@ class AssassinSetup extends FreshProgram {
                 participants.add(new Player(name, phoneNum, notes, i));
             }
         }
+    }
+
+    public static void main(String[] args) {
+        new AssassinSetup().start();
     }
 
 }
