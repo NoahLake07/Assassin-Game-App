@@ -116,6 +116,16 @@ class AssassinSetup extends FreshProgram {
     }
 
     /**
+     * Tests the functionality of the player decode method. Prints the contact card out to the console.
+     */
+    public void test4(){
+        String playerString = TestData.examplePlayers1().get(0).save();
+        Printer.println("\t * SYSTEM WILL DECODE: " + playerString, Printer.BLUE);
+
+        Player.decode(playerString).printContactDetails();
+    }
+
+    /**
      * Tests the functionality of the game save. An example game will be saved to the
      * gameSave1.asn file in the testData folder.
      */
@@ -624,7 +634,7 @@ class AssassinSetup extends FreshProgram {
     }
 
     public static void main(String[] args) {
-        new AssassinSetup().start();
+        new AssassinSetup().test4();
     }
 
 }

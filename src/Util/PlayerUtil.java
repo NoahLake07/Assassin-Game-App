@@ -201,6 +201,9 @@ public class PlayerUtil {
         return save;
     }
 
+    /**
+     * A class that decodes simple strings of player data stored inside a PLDIR file.
+     */
     public class Builder extends ArrayList<Player> {
 
         private File given;

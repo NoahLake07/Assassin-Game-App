@@ -1,8 +1,14 @@
 package data;
 
+import Debug.Printer;
+import Util.PlayerUtil;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Game {
 
@@ -18,6 +24,109 @@ public class Game {
         twilioAUTH = messageAuth;
         twilioSID = messageSID;
         twilioNUM = number;
+    }
+
+    public Game(){
+        players = new ArrayList<>();
+        gameTitle = "null";
+        twilioSID = "null";
+        twilioAUTH = "null";
+        twilioNUM = "null";
+    }
+
+    public static Game loadGameFromFile(File file){
+
+        return null;
+    }
+
+    public static Game loadGameFromFile(String path){
+        return loadGameFromFile(new File(path));
+    }
+
+    public class Loader {
+
+        File data;
+        Scanner scr;
+        // create tracker variables
+        int i = 0;
+
+        Game game = new Game();
+
+        public Loader(File file){
+            data = file;
+        }
+
+        public void startScan(){
+            // create file scanner
+            try {
+                scr = new Scanner(data);
+                Printer.println("\t > STARTED GAME LOAD FROM " + data.getPath(), Printer.GREEN);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+
+            // make sure that the file is an approved file that contains all game data
+            if(scr.nextLine().contains("@approvedFile")) {
+                // increment past the first line now that we know the file is approved
+                i++;
+
+                Printer.println("\t > FILE IS APPROVED. DECODE STARTING... <", Printer.BLUE);
+                Printer.println("\t\t LINES DECODED: ");
+
+                // scan each line of the file provided until the game file closes.
+                while (scr.hasNextLine()) {
+                    decodeLine(scr.nextLine());
+                    i++;
+                }
+            }
+        }
+
+        private void decodeLine(String data){
+            int c = 0;
+
+            // end of file
+            if(data.contains("}")){
+                Printer.println("END OF FILE AT LINE " + i);
+            }
+
+            // player data
+            if(data.startsWith("(")){
+                // decode the player into its own player object
+                // add the player to the game's ArrayList of players
+            }
+
+            // twilio sid
+            if(data.startsWith("¿")){
+                c++;
+                StringBuffer sb = new StringBuffer();
+                while(data.charAt(c) != '¿'){
+                    sb.append(data.charAt(c));
+                }
+                game.twilioSID = sb.toString();
+            }
+
+            // twilio account auth token
+            if(data.startsWith("±")){
+                c++;
+                StringBuffer sb = new StringBuffer();
+                while(data.charAt(c) != '±'){
+                    sb.append(data.charAt(c));
+                }
+                game.twilioAUTH = sb.toString();
+            }
+
+            // twilio number
+            if(data.startsWith("#")){
+                c++;
+                StringBuffer sb = new StringBuffer();
+                while(data.charAt(c) != '#'){
+                    sb.append(data.charAt(c));
+                }
+
+                game.twilioNUM = sb.toString();
+            }
+        }
+
     }
 
     public class Saver {

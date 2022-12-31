@@ -1,5 +1,7 @@
 package data;
 
+import Debug.Printer;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -115,6 +117,91 @@ public class Player {
         }
 
         return player;
+    }
+
+    public static Player decode(String data){
+        int c = 0;
+
+        // check to see if the string is valid
+        if(data.charAt(c) == '('){
+            c++;
+            Player player = new Player("--","--","--");
+
+            // scan name
+            StringBuffer sb = new StringBuffer();
+            while(data.charAt(c) != '<'){
+                sb.append(data.charAt(c++));
+            }
+            player.name = sb.toString();
+
+                sb.delete(0,0);
+                c++;
+
+            // scan phone number
+            while(data.charAt(c) != '<'){
+                sb.append(data.charAt(c++));
+            }
+            player.phoneNumber = sb.toString();
+
+                sb.delete(0,0);
+            c++;
+
+            // scan PID
+            while(data.charAt(c) != '<'){
+                sb.append(data.charAt(c++));
+            }
+            player.PID = Integer.parseInt(sb.toString());
+
+                sb.delete(0,0);
+            c++;
+
+            // scan notes
+            while(data.charAt(c) != '<'){
+                sb.append(data.charAt(c++));
+            }
+            player.notes = sb.toString();
+
+                sb.delete(0,0);
+            c++;
+
+            // scan lives
+            while(data.charAt(c) != '<'){
+                sb.append(data.charAt(c++));
+            }
+            player.lives = Integer.parseInt(sb.toString());
+
+                sb.delete(0,0);
+            c++;
+
+            // scan score
+            while(data.charAt(c) != '<'){
+                sb.append(data.charAt(c++));
+            }
+            player.score = Integer.parseInt(sb.toString());
+
+                sb.delete(0,0);
+            c++;
+
+            // scan killedBy (sb should end with '|')
+            while(data.charAt(c) != '<'){
+                sb.append(data.charAt(c++));
+            }
+            player.killedBy = Player.decodeSimple(sb.toString());
+
+                sb.delete(0,0);
+            c++;
+
+            // start looping through rest of data
+
+                sb.delete(0,0);
+            c++;
+
+            // return player generated
+            return player;
+        } else {
+            Printer.println("\t ! SPECIFIED PLAYER SAVE STRING IS NOT VALID. Expected '(', but found '" + data.charAt(c) + "' instead.",Printer.RED);
+            return null;
+        }
     }
 
     public boolean isAlive(){
