@@ -2,6 +2,7 @@ package data;
 
 import Debug.Printer;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Player {
@@ -120,86 +121,34 @@ public class Player {
     }
 
     public static Player decode(String data){
-        int c = 0;
-
         // check to see if the string is valid
-        if(data.charAt(c) == '('){
-            c++;
-            Player player = new Player("--","--","--");
+        if(data.charAt(0) == '('){
+            String[] dataArray = data.split("<");
 
-            // scan name
-            StringBuffer sb = new StringBuffer();
-            while(data.charAt(c) != '<'){
-                sb.append(data.charAt(c++));
+            // remove all unwanted syntax left over from the split
+            for (int i = 0; i < dataArray.length-1; i++) {
+                // remove all spacers
+                dataArray[i].replaceAll("<","");
+
+                // conditional removing of save syntax
+                if(i>3){
+                    dataArray[i].strip();
+                }
+                if(i==0){
+                    dataArray[0] = dataArray[0].substring(1);
+                }
+                if(i==6){
+                    dataArray[6] = dataArray[6].substring(0,dataArray[6].length()-1);
+                }
+
+                // print the array results
+                Printer.println("ARRAY[ " + i + " ]:: " + dataArray[i],Printer.YELLOW);
             }
-            player.name = sb.toString();
-
-                sb.delete(0,0);
-                c++;
-
-            // scan phone number
-            while(data.charAt(c) != '<'){
-                sb.append(data.charAt(c++));
-            }
-            player.phoneNumber = sb.toString();
-
-                sb.delete(0,0);
-            c++;
-
-            // scan PID
-            while(data.charAt(c) != '<'){
-                sb.append(data.charAt(c++));
-            }
-            player.PID = Integer.parseInt(sb.toString());
-
-                sb.delete(0,0);
-            c++;
-
-            // scan notes
-            while(data.charAt(c) != '<'){
-                sb.append(data.charAt(c++));
-            }
-            player.notes = sb.toString();
-
-                sb.delete(0,0);
-            c++;
-
-            // scan lives
-            while(data.charAt(c) != '<'){
-                sb.append(data.charAt(c++));
-            }
-            player.lives = Integer.parseInt(sb.toString());
-
-                sb.delete(0,0);
-            c++;
-
-            // scan score
-            while(data.charAt(c) != '<'){
-                sb.append(data.charAt(c++));
-            }
-            player.score = Integer.parseInt(sb.toString());
-
-                sb.delete(0,0);
-            c++;
-
-            // scan killedBy (sb should end with '|')
-            while(data.charAt(c) != '<'){
-                sb.append(data.charAt(c++));
-            }
-            player.killedBy = Player.decodeSimple(sb.toString());
-
-                sb.delete(0,0);
-            c++;
-
-            // start looping through rest of data
-
-                sb.delete(0,0);
-            c++;
 
             // return player generated
-            return player;
+            return null;
         } else {
-            Printer.println("\t ! SPECIFIED PLAYER SAVE STRING IS NOT VALID. Expected '(', but found '" + data.charAt(c) + "' instead.",Printer.RED);
+            Printer.println("\t ! SPECIFIED PLAYER SAVE STRING IS NOT VALID. Expected '(', but found '" + data.charAt(0) + "' instead.",Printer.RED);
             return null;
         }
     }

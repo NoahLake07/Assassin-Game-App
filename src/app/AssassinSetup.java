@@ -122,7 +122,7 @@ class AssassinSetup extends FreshProgram {
         String playerString = TestData.examplePlayers1().get(0).save();
         Printer.println("\t * SYSTEM WILL DECODE: " + playerString, Printer.BLUE);
 
-        Player.decode(playerString).printContactDetails();
+        Player.decode(playerString);
     }
 
     /**
